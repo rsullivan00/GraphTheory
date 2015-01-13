@@ -1,0 +1,310 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\lstset{breaklines=true}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{January 14, 2015}
+\newcommand{\hmwkClass}{Graph Theory}
+\newcommand{\hmwkClassTime}{MWF 9:15}
+\newcommand{\hmwkClassInstructor}{Professor McGinley}
+\newcommand{\hmwkAuthorName}{Rick Sullivan}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Let \(G\) be a loopless graph. For \(v \in V(G)\) and \(e \in E(G)\), describe the adjacency matrix of \(G - e\) and \(G - v\) in terms of \(A(G)\).
+    \\
+
+    \textbf{Solution}
+    The adjacency matrix is an \(n x n\) matrix, where \(n\) is \(|V(G)|\). Each index \(i\) on each axis in \(A(G)\) corresponds to \(v_i\) in \(V(G)\) (i.e. the i-th vertex in \(G\)).
+    \\
+
+    Each pair of indices \(x, y\) contains the number of edges from vertex \(v_x\) to vertex \(v_y\). Assuming the graph is undirected, the element at index \(x, y\) will be the same as the one at \(y, x\). Similarly, if duplicate edges are not allowed, each element will be either 0 or 1.
+    \\
+
+    Because the graph is loopless, all elements with the same x and y indices will be 0, as there are no edges from a vertex to itself.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Decide if the following sequences are graphical. If the sequence is graphical, produce a graph with that degree sequence (using the algorithm!).
+    \begin{enumerate}[(a)]
+        \item 5, 5, 4, 3, 2, 2, 2, 1
+        \item 5, 5, 5, 4, 2, 1, 1, 1
+    \end{enumerate}
+
+    \textbf{Part a}
+    \\
+
+    First, check that the sequence is graphical. \\
+    \begin{center} 
+    \begin{tabular}{l l l l l l l l l}
+\(S\)   & 5 & 5 & 4 & 3 & 2 & 2 & 2 & 1\\
+\(S_1\) &   & 4 & 3 & 2 & 1 & 1 & 2 & 1\\
+        &   & 4 & 3 & 2 & 2 & 1 & 1 & 1\\
+\(S_2\) &   &   & 2 & 1 & 1 & 0 & 1 & 1\\
+        &   &   & 2 & 1 & 1 & 1 & 1 & 0\\
+\(S_3\) &   &   &   & 0 & 0 & 1 & 1 & 0\\
+        &   &   &   & 1 & 1 & 0 & 0 & 0\\
+\(S_4\) &   &   &   &   & 0 & 0 & 0 & 0\\
+    \end{tabular}
+    \end{center}
+
+    A row of 0s indicates that this sequence is graphical. Now, moving backward to construct the graph.
+    \\
+
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=0pt},}
+    \usetikzlibrary{shapes.geometric}
+    \begin{tikzpicture}
+        \node[draw=none, minimum size=2cm,regular polygon,regular polygon sides=8] (a) {\(G_4\)};
+
+        % draw a black dot in each vertex
+        \foreach \x in {1,2,...,4}
+            \node[main node] at(a.corner \x) (\x) {};
+
+    \end{tikzpicture}
+    \hspace{0.5in}
+    \begin{tikzpicture}
+        \node[draw=none, minimum size=2cm,regular polygon,regular polygon sides=8] (a) {\(G_3\)};
+
+        % draw a black dot in each vertex
+        \foreach \x in {1,2,...,5}
+            \node[main node] at(a.corner \x) (\x) {};
+
+        \path[draw, thick]
+        (1) edge node {} (2);
+    \end{tikzpicture}
+    \hspace{0.5in}
+    \begin{tikzpicture}
+        \node[draw=none, minimum size=2cm,regular polygon,regular polygon sides=8] (a) {\(G_2\)};
+
+        % draw a black dot in each vertex
+        \foreach \x in {1,2,...,6}
+            \node[main node] at(a.corner \x) (\x) {};
+
+        \path[draw, thick]
+        (1) edge node {} (2)
+        (2) edge node {} (3)
+        (4) edge node {} (5);
+    \end{tikzpicture}
+    \hspace{0.5in}
+    \begin{tikzpicture}
+        \node[draw=none, minimum size=2cm,regular polygon,regular polygon sides=8] (a) {\(G_1\)};
+
+        % draw a black dot in each vertex
+        \foreach \x in {1,2,...,7}
+            \node[main node] at(a.corner \x) (\x) {};
+
+        \path[draw, thick]
+        (1) edge node {} (2)
+        (1) edge node {} (3)
+        (1) edge node {} (7)
+        (2) edge node {} (3)
+        (2) edge node {} (4)
+        (2) edge node {} (6)
+        (4) edge node {} (5);
+    \end{tikzpicture}
+    \hspace{0.5in}
+    \begin{tikzpicture}
+        \node[draw=none, minimum size=2cm,regular polygon,regular polygon sides=8] (a) {\(G\)};
+
+        % draw a black dot in each vertex
+        \foreach \x in {1,2,...,8}
+            \node[main node] at(a.corner \x) (\x) {};
+
+        \path[draw, thick]
+        (1) edge node {} (2)
+        (1) edge node {} (3)
+        (1) edge node {} (7)
+        (1) edge node {} (8)
+        (1) edge node {} (5)
+        (2) edge node {} (3)
+        (2) edge node {} (4)
+        (2) edge node {} (6)
+        (2) edge node {} (7)
+        (3) edge node {} (6)
+        (3) edge node {} (4)
+        (4) edge node {} (5);
+    \end{tikzpicture}
+    \\
+
+    \textbf{Part b}
+    \\
+
+    First, check that the sequence is graphical.\\
+    \begin{center} 
+    \begin{tabular}{l l l l l l l l l}
+\(S\)   & 5 & 5 & 5 & 4 & 2 & 1 & 1 & 1\\
+\(S_1\) &   & 4 & 4 & 3 & 1 & 0 & 1 & 1\\
+        &   & 4 & 4 & 3 & 1 & 1 & 1 & 0\\
+\(S_2\) &   &   & 3 & 2 & 0 & 0 & 1 & 0\\
+        &   &   & 3 & 2 & 1 & 0 & 0 & 0\\
+\(S_3\) &   &   &   & 1 & 0 & -1 & 0 & 0\\
+    \end{tabular}
+    \end{center}
+
+    \(S_3\) contains a negative number, so it is not graphical. Therefore, \(S\) is not graphical.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Prove that every simple graph with at least two vertices has two vertices with the same degree.
+    \\
+
+    \textbf{Solution}
+    \begin{proof}
+        Consider a graph \(G\) with \(n\) vertices, where \(n\) is at least 2. Because the graph is simple, the maximum degree of any vertex in \(G\) is \(n-1\) (one edge with every other node). 
+        There are two cases to consider:
+        \begin{enumerate}
+            \item At least one node has degree \(n-1\). Because this node is adjacent to every other node, no node has degree 0.
+            \item There is no node with degree \(n-1\), and nodes may have degree 0.
+        \end{enumerate}
+
+        In each case, there are \(n-1\) possible buckets of degree for a vertex in \(G\). By the pigeon-hole principle, one of these buckets will have at least 2 vertices. Therefore, there are two vertices with the same degree in \(G\).
+    \end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Prove that a graph with exactly two vertices of odd degree has a path from one to the other. (Hint: what would happen if the graph did not have a path from one to the other?)
+    \\
+
+    \textbf{Solution}
+    \begin{proof}
+        Assume that a graph \(G\) has exactly two vertices \(v_a, v_b\) of odd degree. Also assume that these vertices do not have a path from one to the other. 
+        Therefore, \(G\) must have at least two completely disjoint subgraphs, with \(v_a\) and \(v_b\) existing in separate subgraphs. 
+        Because there are only two vertices of odd degree in \(G\), the subgraphs containing \(v_a\) and \(v_b\) must contain exactly one vertex of odd degree. By theorem 1.1.1 in the text, however, any graph must contain an even number of vertices of odd degree.
+        By contradiction, therefore, \(G\) must contain a path from \(v_a\) to \(v_b\).
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
