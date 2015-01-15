@@ -1,0 +1,331 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\lstset{breaklines=true}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{January 21, 2015}
+\newcommand{\hmwkClass}{Graph Theory}
+\newcommand{\hmwkClassTime}{MWF 9:15}
+\newcommand{\hmwkClassInstructor}{Professor McGinley}
+\newcommand{\hmwkAuthorName}{Rick Sullivan}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Give \(k(G)\) and \(k_1(G)\) for the following graphs:
+
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=0pt},}
+    \begin{tikzpicture}
+        \node[main node] (a) {};
+        \node[main node] (b) [below left = 0.6cm and 0.6cm of a] {};
+        \node[main node] (c) [below right = 0.6cm and 0.6cm of a] {};
+        \node[main node] (d) [below left = 0.6cm and 0.6cm of c] {};
+        \node[main node] (e) [right= 1cm of c] {};
+        \node[main node] (f) [below right = 0.6cm and 0.6cm of e] {};
+        \node[main node] (g) [above right = 0.6cm and 0.6cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge node {} (c)
+        (c) edge node {} (d)
+        (c) edge node {} (e)
+        (e) edge node {} (f)
+        (e) edge node {} (g);
+    \end{tikzpicture}
+    \hspace{0.5in}
+    \begin{tikzpicture}
+        \node[main node] (a) {};
+        \node[main node] (b) [right= 1cm of a] {};
+        \node[main node] (c) [right= 1cm of b] {};
+        \node[main node] (d) [below= 1cm of a] {};
+        \node[main node] (e) [below= 1cm of b] {};
+        \node[main node] (f) [below= 1cm of c] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge [bend left] node {} (d)
+        (a) edge node {} (e)
+        (b) edge node {} (c)
+        (b) edge node {} (e)
+        (b) edge node {} (f)
+        (c) edge [bend left] node {} (f)
+        (d) edge [bend left] node {} (a)
+        (d) edge node {} (e)
+        (e) edge node {} (f)
+        (f) edge [bend left] node {} (c);
+    \end{tikzpicture}
+    \\
+ 
+
+    \textbf{Solution}
+        
+    The first graph has \(k(G) = 1\) and \(k_1(G)=1\). These can be found by removing any vertex with degree > 1, or removing any edge.
+    \\
+
+    The second graph has \(k(G) = 2\) and \(k_1(G)=3\). \(k(G)\) requires removing the two central vertices, while \(k_1(G)\) requires removing either set of three edges like so:
+    \\
+
+    \begin{tikzpicture}
+        \node[main node] (a) {};
+        \node[main node] (b) [right= 1cm of a] {};
+        \node[main node] (c) [right= 1cm of b] {};
+        \node[main node] (d) [below= 1cm of a] {};
+        \node[main node] (e) [below= 1cm of b] {};
+        \node[main node] (f) [below= 1cm of c] {};
+
+        \path[draw, thick]
+        (a) edge [bend left] node {} (d)
+        (b) edge node {} (c)
+        (b) edge node {} (e)
+        (b) edge node {} (f)
+        (c) edge [bend left] node {} (f)
+        (d) edge [bend left] node {} (a)
+        (e) edge node {} (f)
+        (f) edge [bend left] node {} (c);
+    \end{tikzpicture}
+    \hspace{0.25in}
+    or
+    \hspace{0.25in}
+     \begin{tikzpicture}
+        \node[main node] (a) {};
+        \node[main node] (b) [right= 1cm of a] {};
+        \node[main node] (c) [right= 1cm of b] {};
+        \node[main node] (d) [below= 1cm of a] {};
+        \node[main node] (e) [below= 1cm of b] {};
+        \node[main node] (f) [below= 1cm of c] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge [bend left] node {} (d)
+        (a) edge node {} (e)
+        (b) edge node {} (e)
+        (c) edge [bend left] node {} (f)
+        (d) edge [bend left] node {} (a)
+        (d) edge node {} (e)
+        (f) edge [bend left] node {} (c);
+    \end{tikzpicture}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    For the graph below:
+    \begin{enumerate}[a)]
+        \item Give three edges whose removal separates \(s\) from \(t\). Is this the minimum number of such edges?
+        \item What is the maximum number of edge-disjoint paths from \(s\) to \(t\) and why?
+    \end{enumerate}
+
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt},}
+    \begin{tikzpicture}
+        \node[main node] (a) {a};
+        \node[main node] (b) [below= 1cm of a] {b};
+        \node[main node] (c) [below= 1cm of b] {c};
+        \node[main node] (d) [right= 1cm of a] {d};
+        \node[main node] (s) [left= 1cm of b] {s};
+        \node[main node] (e) [below= 1cm of d] {e};
+        \node[main node] (f) [below= 1cm of e] {f};
+        \node[main node] (t) [right= 1cm of e] {t};
+
+        \path[draw, thick]
+        (s) edge node {} (a)
+        (s) edge node {} (b)
+        (s) edge node {} (c)
+        (a) edge node {} (e)
+        (b) edge node {} (d)
+        (b) edge node {} (f)
+        (c) edge node {} (e)
+        (d) edge node {} (t)
+        (e) edge node {} (t)
+        (f) edge node {} (t);
+    \end{tikzpicture}
+    \\
+
+
+    \textbf{Part a}
+        
+    The edge set \({s-a, s-b, s-c}\) separates \(s\) from \(t\) when removed. This is not the minimum number of such edges; the set \({s-b, e-t}\) does the same.
+
+    \textbf{Part b}
+
+    The maximum number of edge-disjoint paths from \(s\) to \(t\) is 2: every path must take either edge \(s-b\) or \(e-t\). This is confirmed by the second answer of part a. Because the graph can be separated by removing those two edges, one of them must be traversed to travel from one subgraph to the other. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Find the shortest path from \(a\) to the other vertices.
+
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}, every node/.style={->}}
+    \begin{tikzpicture}
+        \node[main node] (a) {a};
+        \node[main node] (b) [right= 1cm of a] {b};
+        \node[main node] (c) [below left= 1cm of a] {c};
+        \node[main node] (d) [below right= 1cm of b] {d};
+        \node[main node] (e) [below right= 1cm of c] {e};
+        \node[main node] (f) [right= 1cm of e] {f};
+
+        \path[draw, thick]
+        (c) edge node {} (a)
+        (e) edge node {} (c);
+    \end{tikzpicture}
+    \\
+
+    \textbf{Solution}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Find the articulation points (using the algorithm!)
+
+
+    \textbf{Solution}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    Use induction on \(p\) to show that if \(G\) is a connected graph of order \(p\), then the size of \(G\) is at least \(p-1\).
+    \\
+
+    \textbf{Solution}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Find the smallest 3-regular graph simple graph having \(k(G)=1\).
+    \\
+
+    \textbf{Solution}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    Prove or disprove: If \(G\) is 2-connected, then for an \(arbitrary u - v\) path \(P\), there is \(some other u - v\) path edge-disjoint from \(P\).
+    \\
+
+    \textbf{Solution}
+\end{homeworkProblem}
+\end{document}
