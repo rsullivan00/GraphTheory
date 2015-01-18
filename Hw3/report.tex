@@ -275,6 +275,7 @@
     \textbf{Part a}
         
     The edge set \({s-a, s-b, s-c}\) separates \(s\) from \(t\) when removed. This is not the minimum number of such edges; the set \({s-b, e-t}\) does the same.
+    \\
 
     \textbf{Part b}
 
@@ -305,14 +306,54 @@
 \begin{homeworkProblem}
     Find the articulation points (using the algorithm!)
 
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+    \begin{tikzpicture}
+        \node[main node] (f) {F};
+        \node[main node] (d) [right= 1cm of f] {D};
+        \node[main node] (g) [below= 1cm of d] {G};
+        \node[main node] (b) [right= 1cm of d] {B};
+        \node[main node] (a) [right= 1cm of b] {A};
+        \node[main node] (c) [right= 1cm of a] {C};
+        \node[main node] (i) [right= 1cm of c] {I};
+        \node[main node] (j) [above right= 1cm of i] {J};
+        \node[main node] (e) [below right= 1cm of i] {E};
+        \node[main node] (h) [below right= 1cm of j] {H};
+
+        \path[draw, thick]
+        (f) edge node {} (d)
+        (d) edge node {} (g)
+        (d) edge node {} (b)
+        (g) edge node {} (b)
+        (b) edge node {} (a)
+        (a) edge node {} (c)
+        (a) edge [bend right] node {} (i)
+        (c) edge node {} (i)
+        (i) edge node {} (j)
+        (i) edge node {} (e)
+        (e) edge node {} (h)
+        (j) edge node {} (h);
+    \end{tikzpicture}
+    \\
 
     \textbf{Solution}
+
+
 \end{homeworkProblem}
 \begin{homeworkProblem}
     Use induction on \(p\) to show that if \(G\) is a connected graph of order \(p\), then the size of \(G\) is at least \(p-1\).
     \\
 
     \textbf{Solution}
+
+    \begin{proof}
+        Base case: With \(p=1\), \(G\) is connected trivially with size 0. In this case, the size of \(G\) is at least \(p-1\).
+        \\
+
+        Inductive case: Assume that we have a connected graph \(G\) of order \(p\) with size \(s_0 \geq p-1\). 
+        If we add another vertex to this graph and want to connect it to the graph, we must also add at least one edge.
+        Therefore, a new graph with an added connected vertex will have size \(s_1 \geq s_0 + 1 \geq p-1+1\).
+        This new graph of order \(p+1\) therefore also satisfies the size condition.
+    \end{proof}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
@@ -320,10 +361,48 @@
     \\
 
     \textbf{Solution}
+    \\
+
+    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+    \begin{tikzpicture}
+        \node[main node] (a) {};
+        \node[main node] (b) [right= 1cm of a] {};
+        \node[main node] (c) [above= 1cm of b] {};
+        \node[main node] (d) [below= 1cm of b] {};
+        \node[main node] (e) [right= 1cm of b] {};
+
+        \node[main node] (f) [right= 1cm of e] {};
+        \node[main node] (g) [right= 1cm of f] {};
+        \node[main node] (h) [above= 1cm of g] {};
+        \node[main node] (i) [below= 1cm of g] {};
+        \node[main node] (j) [right= 1cm of g] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge node {} (c)
+        (a) edge node {} (d)
+        (b) edge node {} (c)
+        (b) edge node {} (d)
+        (c) edge node {} (e)
+        (d) edge node {} (e)
+
+        (e) edge node {} (f)
+
+        (f) edge node {} (h)
+        (f) edge node {} (i)
+        (g) edge node {} (h)
+        (g) edge node {} (i)
+        (g) edge node {} (j)
+        (h) edge node {} (j)
+        (i) edge node {} (j)
+        ;
+    \end{tikzpicture}
+    \\
+ 
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-    Prove or disprove: If \(G\) is 2-connected, then for an \(arbitrary u - v\) path \(P\), there is \(some other u - v\) path edge-disjoint from \(P\).
+    Prove or disprove: If \(G\) is 2-connected, then for an \(arbitrary\ u - v\) path \(P\), there is \(some\ other\ u - v\) path edge-disjoint from \(P\).
     \\
 
     \textbf{Solution}
