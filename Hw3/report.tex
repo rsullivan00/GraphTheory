@@ -285,22 +285,48 @@
 \begin{homeworkProblem}
     Find the shortest path from \(a\) to the other vertices.
 
-    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}, every node/.style={->}}
-    \begin{tikzpicture}
+    \tikzset{main node/.style={circle,draw,minimum size=0.5cm,inner sep=1pt}}
+    \begin{tikzpicture}[auto, node distance = 2cm]
         \node[main node] (a) {a};
-        \node[main node] (b) [right= 1cm of a] {b};
-        \node[main node] (c) [below left= 1cm of a] {c};
-        \node[main node] (d) [below right= 1cm of b] {d};
-        \node[main node] (e) [below right= 1cm of c] {e};
-        \node[main node] (f) [right= 1cm of e] {f};
+        \node[main node] (b) [right of=a] {b};
+        \node[main node] (c) [below left of=a] {c};
+        \node[main node] (d) [below right of=b] {d};
+        \node[main node] (e) [below right of=c] {e};
+        \node[main node] (f) [right of=e] {f};
 
-        \path[draw, thick]
-        (c) edge node {} (a)
-        (e) edge node {} (c);
+        \path[draw, thick, ->]
+        (c) edge node {5} (a)
+        (a) edge node {12} (b)
+        (a) edge node {6} (f)
+        (a) edge node {1} (e)
+        (e) edge node {9} (c)
+        (e) edge [bend right] node {9} (f)
+        (f) edge node {9} (e)
+        (f) edge node {6} (b)
+        (f) edge [bend right] node {12} (d)
+        (b) edge node {6} (d)
+        (d) edge node {10} (f)
+        (e) edge node {9} (c);
     \end{tikzpicture}
     \\
 
     \textbf{Solution}
+    \\
+
+    Using Djikstra's algorithm:
+
+    \begin{center}
+        \begin{tabular}{l l l l l l l}
+            & a & b & c & d & e & f\\
+            Initializing: & 0 & \(\infty\) & \(\infty\) & \(\infty\) & \(\infty\) & \(\infty\)\\
+            At a: & 0 & 12 & \(\infty\) & \(\infty\) & 1 & 6 \\
+            At e: & 0 & 12 & 10 & 18 & 1 & 6 \\
+            At f (no change): & 0 & 12 & 10 & 18 & 1 & 6 \\
+            At e (no change): & 0 & 12 & 10 & 18 & 1 & 6 \\
+            At b (no change): & 0 & 12 & 10 & 18 & 1 & 6 \\
+            At d (no change): & 0 & 12 & 10 & 18 & 1 & 6 \\
+        \end{tabular}
+    \end{center}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
@@ -337,6 +363,8 @@
 
     \textbf{Solution}
 
+    The articulation points are \(D\), \(B\), and \(A\).
+
 
 \end{homeworkProblem}
 \begin{homeworkProblem}
@@ -363,19 +391,35 @@
     \textbf{Solution}
     \\
 
-    \tikzset{main node/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
-    \begin{tikzpicture}
-        \node[main node] (a) {};
-        \node[main node] (b) [right= 1cm of a] {};
-        \node[main node] (c) [above= 1cm of b] {};
-        \node[main node] (d) [below= 1cm of b] {};
-        \node[main node] (e) [right= 1cm of b] {};
+    The smallest 3-regular graph is a simple triangle:\\
+    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+    \begin{tikzpicture}[node distance = 1cm]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [right of=a] {};
+        \node[vertex] (c) [above of=b] {};
 
-        \node[main node] (f) [right= 1cm of e] {};
-        \node[main node] (g) [right= 1cm of f] {};
-        \node[main node] (h) [above= 1cm of g] {};
-        \node[main node] (i) [below= 1cm of g] {};
-        \node[main node] (j) [right= 1cm of g] {};
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge node {} (c)
+        (b) edge node {} (c);
+    \end{tikzpicture}
+    \\
+
+    In order to ensure that \(k(G)=1\), 
+ 
+    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+    \begin{tikzpicture}
+        \node[vertex] (a) {};
+        \node[vertex] (b) [right= 1cm of a] {};
+        \node[vertex] (c) [above= 1cm of b] {};
+        \node[vertex] (d) [below= 1cm of b] {};
+        \node[vertex] (e) [right= 1cm of b] {};
+
+        \node[vertex] (f) [right= 1cm of e] {};
+        \node[vertex] (g) [right= 1cm of f] {};
+        \node[vertex] (h) [above= 1cm of g] {};
+        \node[vertex] (i) [below= 1cm of g] {};
+        \node[vertex] (j) [right= 1cm of g] {};
 
         \path[draw, thick]
         (a) edge node {} (b)
@@ -406,5 +450,14 @@
     \\
 
     \textbf{Solution}
+
+    \begin{proof}
+    If a graph is 2-connected, there does not exist any cut vertex that would disconnect the graph upon removal.
+    In other words, \(G\) has no articulation points. 
+    If \(G\) has no articulation points, there is no point that exists in every path between two or more subgraphs of \(G\).
+    Therefore, every path in \(G\) has an alternative vertex-disjoint path.
+    Path edges are defined by the vertices at each edge's endpoints. 
+    Therefore, because every path in \(G\) has an alternative vertex-disjoint path, it must also have an alternative edge-disjoint path.
+    \end{proof}
 \end{homeworkProblem}
 \end{document}
