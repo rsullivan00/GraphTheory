@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.11.20)  20 JAN 2015 23:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.11.20)  21 JAN 2015 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -656,70 +656,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 362--364
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
+
+ []
+
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 380--381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 396--398
+Underfull \hbox (badness 10000) in paragraph at lines 398--400
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 415--416
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 433--434
+Underfull \hbox (badness 10000) in paragraph at lines 435--436
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--460
+Underfull \hbox (badness 10000) in paragraph at lines 460--462
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 464--466
+Underfull \hbox (badness 10000) in paragraph at lines 466--468
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 475--477
+Underfull \hbox (badness 10000) in paragraph at lines 477--479
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 478--480
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--494
+Underfull \hbox (badness 10000) in paragraph at lines 483--484
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 530--532
+Underfull \hbox (badness 10000) in paragraph at lines 518--520
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--538
+Underfull \hbox (badness 10000) in paragraph at lines 540--542
 
  []
 
 [6] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 13552 strings out of 493304
- 251334 string characters out of 6139870
+ 13551 strings out of 493304
+ 251318 string characters out of 6139870
  334988 words of memory out of 5000000
- 16718 multiletter control sequences out of 15000+600000
+ 16717 multiletter control sequences out of 15000+600000
  12802 words of font info for 49 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,12n,82p,430b,984s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,12n,82p,430b,1033s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
 x12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
@@ -729,7 +734,7 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (6 pages, 120408 bytes).
+Output written on report.pdf (6 pages, 120431 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream

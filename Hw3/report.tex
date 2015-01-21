@@ -91,7 +91,7 @@
 %
 
 \newcommand{\hmwkTitle}{Homework\ \#3}
-\newcommand{\hmwkDueDate}{January 21, 2015}
+\newcommand{\hmwkDueDate}{January 23, 2015}
 \newcommand{\hmwkClass}{Graph Theory}
 \newcommand{\hmwkClassTime}{MWF 9:15}
 \newcommand{\hmwkClassInstructor}{Professor McGinley}
@@ -365,6 +365,7 @@
     \textbf{Solution}
 
     My constructed DFS tree:\\
+    \begin{center}
     \begin{tikzpicture}
         \Tree [.F [.\node(D){D}; [.G [.\node(B){B}; [.\node(A){A}; [.C [.\node(I){I}; [.J [.H [.\node(E){E}; ] ] ] ] ] ] ] ] ] ] 
 
@@ -374,6 +375,7 @@
             \draw (E)..controls +(north west:1) and +(south west:1)..(I);
         \end{scope}
     \end{tikzpicture}
+    \end{center}
 
     Initializing our n and c values to the order a node was encountered on our search.\\
     \begin{center}
@@ -516,20 +518,20 @@
     \end{tikzpicture}
     \\
  
-    I am not sure how to rigorously prove this concept, but here is my approach:\\
-    The smallest 3-regular graph is a simple triangle:\\
-    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
-    \begin{tikzpicture}[node distance = 1cm]
-        \node[vertex] (a) {};
-        \node[vertex] (b) [right of=a] {};
-        \node[vertex] (c) [above of=b] {};
+%   I am not sure how to rigorously prove this concept, but here is my approach:\\
+%   The smallest 3-regular graph is a simple triangle:\\
+%   \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+%   \begin{tikzpicture}[node distance = 1cm]
+%       \node[vertex] (a) {};
+%       \node[vertex] (b) [right of=a] {};
+%       \node[vertex] (c) [above of=b] {};
 
-        \path[draw, thick]
-        (a) edge node {} (b)
-        (a) edge node {} (c)
-        (b) edge node {} (c);
-    \end{tikzpicture}
-    \\
+%       \path[draw, thick]
+%       (a) edge node {} (b)
+%       (a) edge node {} (c)
+%       (b) edge node {} (c);
+%   \end{tikzpicture}
+%   \\
 
 
 \end{homeworkProblem}
@@ -542,11 +544,13 @@
 
     \begin{proof}
     If a graph is 2-connected, there does not exist any cut vertex that would disconnect the graph upon removal.
-    In other words, \(G\) has no articulation points. 
-    If \(G\) has no articulation points, there is no point that exists in every path between two or more subgraphs of \(G\).
-    Therefore, every path in \(G\) has an alternative vertex-disjoint path.
+    By Menger's theorem, a connected graph with no cut vertex also must have at least two internally disjoint paths between any two vertices.
+%    In other words, \(G\) has no articulation points. 
+%    If \(G\) has no articulation points, there is no point that exists in every path between two subgraphs of \(G\).
+%    Therefore, every path in \(G\) has an alternative vertex-disjoint path.
+
     Path edges are defined by the vertices at each edge's endpoints. 
-    Therefore, because every path in \(G\) has an alternative vertex-disjoint path, it must also have an alternative edge-disjoint path.
+    Therefore, because every path in \(G\) has an alternative internally disjoint path, it must also have an alternative edge-disjoint path.
     \end{proof}
 \end{homeworkProblem}
 \end{document}
