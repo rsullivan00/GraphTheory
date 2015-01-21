@@ -6,6 +6,7 @@
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{tikz}
+\usepackage{tikz-qtree}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{listings}
@@ -363,7 +364,93 @@
 
     \textbf{Solution}
 
-    The articulation points are \(D\), \(B\), and \(A\).
+    My constructed DFS tree:\\
+    \begin{tikzpicture}
+        \Tree [.F [.\node(D){D}; [.G [.\node(B){B}; [.\node(A){A}; [.C [.\node(I){I}; [.J [.H [.\node(E){E}; ] ] ] ] ] ] ] ] ] ] 
+
+        \begin{scope}[dashed]
+            \draw (B)..controls +(north west:1) and +(south west:1)..(D);
+            \draw (I)..controls +(north east:1) and +(south east:1)..(A);
+            \draw (E)..controls +(north west:1) and +(south west:1)..(I);
+        \end{scope}
+    \end{tikzpicture}
+
+    Initializing our n and c values to the order a node was encountered on our search.\\
+    \begin{center}
+    \begin{tabular}{c | c c }
+        & n & c\\
+        \hline
+        A & 5 & 5\\
+        B & 4 & 4\\
+        C & 6 & 6\\
+        D & 2 & 2\\
+        E & 10 & 10\\
+        F & 1 & 1\\
+        G & 3 & 3\\
+        H & 9 & 9\\
+        I & 7 & 7\\
+        J & 8 & 8\\
+    \end{tabular}
+\end{center}
+
+    Begin traversing the tree backwards, comparing c values according to the algorithm. \\
+    At E, c(I) is less than n(E). Therefore, update c(E), c(H), and c(J) (J and H can take forward edges to the back edge).\\
+    \begin{center}
+    \begin{tabular}{c | c c }
+        & n & c\\
+        \hline
+        A & 5 & 5\\
+        B & 4 & 4\\
+        C & 6 & 6\\
+        D & 2 & 2\\
+        E & 10 & \textbf{7}\\
+        F & 1 & 1\\
+        G & 3 & 3\\
+        H & 9 & \textbf{7}\\
+        I & 7 & 7\\
+        J & 8 & \textbf{7}\\
+    \end{tabular}
+\end{center}
+
+    At I, c(A) is less than n(I).\\
+    \begin{center}
+    \begin{tabular}{c | c c }
+        & n & c\\
+        \hline
+        A & 5 & 5\\
+        B & 4 & 4\\
+        C & 6 & \textbf{5}\\
+        D & 2 & 2\\
+        E & 10 & 7\\
+        F & 1 & 1\\
+        G & 3 & 3\\
+        H & 9 & 7\\
+        I & 7 & \textbf{5}\\
+        J & 8 & 7\\    
+    \end{tabular}
+\end{center}
+
+    At B, c(D) is less than n(B).\\ 
+    \begin{center}
+    \begin{tabular}{c | c c }
+        & n & c\\
+        \hline
+        A & 5 & 5\\
+        B & 4 & \textbf{2}\\
+        C & 6 & 5\\
+        D & 2 & 2\\
+        E & 10 & 7\\
+        F & 1 & 1\\
+        G & 3 & \textbf{2}\\
+        H & 9 & 7\\
+        I & 7 & 5\\
+        J & 8 & 7\\    
+    \end{tabular}
+\end{center}
+
+    In our final table, nodes A, B, D, and I are not root nodes and have n values less than or equal to the c value of one of their children. 
+    F, our root node, has only one child, so it is not an articulation point.
+    The articulation points are A, B, D, and I.
 
 
 \end{homeworkProblem}
@@ -391,21 +478,7 @@
     \textbf{Solution}
     \\
 
-    The smallest 3-regular graph is a simple triangle:\\
-    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
-    \begin{tikzpicture}[node distance = 1cm]
-        \node[vertex] (a) {};
-        \node[vertex] (b) [right of=a] {};
-        \node[vertex] (c) [above of=b] {};
-
-        \path[draw, thick]
-        (a) edge node {} (b)
-        (a) edge node {} (c)
-        (b) edge node {} (c);
-    \end{tikzpicture}
-    \\
-
-    In order to ensure that \(k(G)=1\), 
+    Through experimentation, I have found that the smallest 3-ragular simple graph with a vertex cut set size of 1 is a bridged graph with 10 vertices like the following.\\
  
     \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
     \begin{tikzpicture}
@@ -443,6 +516,22 @@
     \end{tikzpicture}
     \\
  
+    I am not sure how to rigorously prove this concept, but here is my approach:\\
+    The smallest 3-regular graph is a simple triangle:\\
+    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=1pt}}
+    \begin{tikzpicture}[node distance = 1cm]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [right of=a] {};
+        \node[vertex] (c) [above of=b] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (a) edge node {} (c)
+        (b) edge node {} (c);
+    \end{tikzpicture}
+    \\
+
+
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
