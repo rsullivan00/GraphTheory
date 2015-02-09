@@ -13,7 +13,7 @@
 \usepackage{enumerate}
 \lstset{breaklines=true}
 
-\usetikzlibrary{automata,positioning}
+\usetikzlibrary{automata,positioning,calc}
 
 %
 % Basic Document Settings
@@ -57,19 +57,38 @@
 
 \newcommand{\bipgraph}[2]{%
     \begin{tikzpicture}[every node/.style={circle,draw}]
-    \foreach \xitem in {1,2,\dots,#1}
+    \foreach \xitem in {1,...,#1}
     {%
-        % first set
-        \node at (0,\xitem) (a\xitem) {};
-        % second set
-        \node at (2,\xitem) (b\xitem) {};   
+    % first set
+    \node at (0,\xitem) (a\xitem) {};
+    % second set
+    \node at (2,\xitem) (b\xitem) {};   
     }%
 
     % connections
     \foreach \x [count=\xi] in {#2}
     {% 
-        \foreach \tritem in \x % <-- Here no braces to make it a foreach list also not \xi but \x
-        \draw(a\xi) -- (b\tritem);
+    \foreach \tritem in \x % <-- Here no braces to make it a foreach list also not \xi but \x
+    \draw(a\xi) -- (b\tritem);
+    }
+    \end{tikzpicture}  
+}
+
+\newcommand{\bipgraphComplete}[1]{%
+    \begin{tikzpicture}[every node/.style={circle,draw}]
+    \foreach \xitem in {1,...,#1}
+    {%
+    % first set
+    \node at (0,\xitem) (a\xitem) {};
+    % second set
+    \node at (2,\xitem) (b\xitem) {};   
+    }%
+
+    % connections
+    \foreach \x in {1,...,#1}
+    {% 
+    \foreach \y in {1,...,#1}
+        \draw(a\x) -- (b\y);
     }
     \end{tikzpicture}  
 }
@@ -171,17 +190,16 @@
     \textbf{Solution}
     \\
 
-    \tikzset{vertex/.style={circle,draw,minimum size=0.25cm,inner sep=0pt,fill=black}}
-    \usetikzlibrary{shapes.geometric}
-    \begin{tikzpicture}
-        \node[vertex] (1) {};
-        \node[vertex] (2) [right=1cm of 1] {};
-        \node[vertex] (3) [below=1cm of 1] {};
-        \node[vertex] (4) [below=1cm of 2] {};
-        \node[vertex] (5) [below=1cm of 3] {};
-        \node[vertex] (6) [below=1cm of 4] {};
-    \end{tikzpicture}
-    \bipgraph{3}{3}
+    \bipgraphComplete{1}
+    \bipgraphComplete{2}
+    \bipgraphComplete{3}
+    \bipgraphComplete{4}
+
+    \(K_{r,r}\) is Hamiltonian for all \(r > 1\).
+    Clearly there is no cycle on \(K_{1,1}\). 
+    There exists a single Hamiltonian cycle on \(K_{2,2}\) for each vertex. 
+    When we add 1 to \(r\) from a Hamiltonian complete bipartite graph, we can then include the two new vertices in the cycle because they are connected to every vertex in on the other side.
+    Each successive graph is then also Hamiltonian.
 \end{homeworkProblem}
 \begin{homeworkProblem}
     Give an example of a graph with more than two vertices that is Hamiltonian but not Eulerian.
@@ -189,12 +207,203 @@
 
     \textbf{Solution}
     \\
+
+    \begin{tikzpicture}[vertex/.style={circle,draw}]
+        \node[vertex] (1) {};
+        \node[vertex] (2) [right=1cm of 1] {};
+        \node[vertex] (3) [below=1cm of 1] {};
+        \node[vertex] (4) [right=1cm of 3] {};
+
+        \path[draw,thick]
+        (1) edge node {} (2)
+        (1) edge node {} (3)
+        (3) edge node {} (4)
+        (2) edge node {} (4)
+        (2) edge node {} (3);
+    \end{tikzpicture}
 \end{homeworkProblem}
 \begin{homeworkProblem}
     Decide if the graph below is Hamiltonian. Explain your answer.
     \\
 
+    \usetikzlibrary{shapes.geometric}
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[draw=none, regular polygon, regular polygon sides=8, minimum size=2cm] (a) {};
+        \node[draw,thick,regular polygon, regular polygon sides=8, minimum size=4cm] (b) {};
+
+        \foreach \x in {1,...,8}{
+            \node[vertex] at(a.corner \x) (a\x) {};
+            \node[vertex] at(b.corner \x) (b\x) {};
+        }
+
+%\foreach[count=\i, evaluate=\i as \x using int(\i+6)] \y in {0,10,...,30}
+        %\foreach[count=\i, evaluate=\i as \y using int(\i+2)] \x in {1,...,6}
+        \foreach \a in {1,...,8} {
+            \draw let \n1={int(mod(\a+1,8)+1)} in (a\a)--(a\n1);
+        }
+
+        % Edges joining concentric circles
+        \foreach \x in {1,...,8}
+            \draw (a\x)--(b\x);
+    \end{tikzpicture}
+
     \textbf{Solution}
     \\
+
+    Yes, the graph is Hamiltonian with the following cycle:
+
+    \usetikzlibrary{shapes.geometric}
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[draw=none, regular polygon, regular polygon sides=8, minimum size=2cm] (a) {};
+        \node[draw,thick,regular polygon, regular polygon sides=8, minimum size=4cm] (b) {};
+
+        \foreach \x in {1,...,8}{
+            \node[vertex] at(a.corner \x) (a\x) {};
+            \node[vertex] at(b.corner \x) (b\x) {};
+        }
+
+%\foreach[count=\i, evaluate=\i as \x using int(\i+6)] \y in {0,10,...,30}
+        %\foreach[count=\i, evaluate=\i as \y using int(\i+2)] \x in {1,...,6}
+        \foreach \a in {1,...,8} {
+            \draw let \n1={int(mod(\a+1,8)+1)} in (a\a)--(a\n1);
+        }
+
+        % Edges joining concentric circles
+        \foreach \x in {1,...,8}
+            \draw (a\x)--(b\x);
+    \end{tikzpicture}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \foreach \x in {b,d,e,f}{
+            \draw (a)--(\x);
+        }
+        \foreach \x in {c,d,e,f}{
+            \draw (b)--(\x);
+        }
+        \foreach \x in {d,e,f}{
+            \draw (c)--(\x);
+        }
+        \draw (d)--(f);
+    \end{tikzpicture}
+
+    \textbf{Solution}
+    \\
+
+    We can divide the edges in the graph to create the following two cycles
+
+    \(C1\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \draw (a)--(d);
+        \draw (a)--(c);
+        \draw (c)--(f);
+        \draw (d)--(f);
+    \end{tikzpicture}
+    \(C2\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \foreach \x in {e,f}{
+            \draw (a)--(\x);
+        }
+        \foreach \x in {d,e,f}{
+            \draw (b)--(\x);
+        }
+        \foreach \x in {d,e}{
+            \draw (c)--(\x);
+        }
+    \end{tikzpicture}
+
+    We can begin on the middle vertex, moving along \(C1\) until we reach a shared vertex.
+
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \draw (g)--(a);
+    \end{tikzpicture}
+
+    At this point, we move over to \(C2\), tracing the entire cycle because there are no new cycles.
+
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \draw (g)--(a);
+        \foreach \x in {e,f}{
+            \draw (a)--(\x);
+        }
+        \foreach \x in {d,e,f}{
+            \draw (b)--(\x);
+        }
+        \foreach \x in {d,e}{
+            \draw (c)--(\x);
+        }
+    \end{tikzpicture}
+
+    We are now back at the top left vertex, and complete tracing \(C1\). 
+
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex] (a) {};
+        \node[vertex] (b) [below=1cm of a] {};
+        \node[vertex] (c) [below=1cm of b] {};
+        \node[vertex] (g) [right=2cm of a] {};
+        \node[vertex] (d) [right=2cm of g] {};
+        \node[vertex] (e) [below=1cm of d] {};
+        \node[vertex] (f) [below=1cm of e] {};
+
+        \foreach \x in {b,d,e,f}{
+            \draw (a)--(\x);
+        }
+        \foreach \x in {c,d,e,f}{
+            \draw (b)--(\x);
+        }
+        \foreach \x in {d,e,f}{
+            \draw (c)--(\x);
+        }
+        \draw (d)--(f);
+    \end{tikzpicture}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    Show that if \(G\) is not 2-connected, \(G\) is not Hamiltonian.
+    \\
+
+    \textbf{Solution}
+    \\
+    
+    If \(G\) is not 2-connected, 
 \end{homeworkProblem}
 \end{document}
