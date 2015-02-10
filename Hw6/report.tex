@@ -128,7 +128,7 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkTitle}{Homework\ \#6}
 \newcommand{\hmwkDueDate}{February 11, 2015}
 \newcommand{\hmwkClass}{Graph Theory}
 \newcommand{\hmwkClassTime}{MWF 9:15}
@@ -246,11 +246,12 @@
         \foreach \x in {1,...,8}
             \draw (a\x)--(b\x);
     \end{tikzpicture}
+    \\
 
     \textbf{Solution}
     \\
 
-    Yes, the graph is Hamiltonian with the following cycle:
+    Yes, the graph is Hamiltonian with the following Hamiltonian cycle:
 
     \usetikzlibrary{shapes.geometric}
     \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
@@ -404,6 +405,12 @@
     \textbf{Solution}
     \\
     
-    If \(G\) is not 2-connected, 
+    If \(G\) is not 2-connected, there exists some vertex \(v\) in \(G\) of degree 1 or 0. In order for a graph to be Hamiltonian, there must exist a cycle that includes each vertex in \(V(G)\).
+    \\
+
+    Case 1: If \(v\) has degree 0, \(G\) is not connected, so no cycle connects all vertices.
+    \\
+
+    Case 2: If \(v\) has degree 1, there is only one path to \(v\), over that single edge. Therefore, there is no cycle containing \(v\), so no cycle connects all vertices in \(G\).
 \end{homeworkProblem}
 \end{document}
