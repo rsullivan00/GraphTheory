@@ -190,7 +190,10 @@
     \textbf{Solution}
     \\
 
-    \(K_{r,s}\) is planar whenever either \(r\) or \(s\) is less than or equal to 2.
+    \(K_{r,s}\) is planar whenever either \(r\) or \(s\) is less than or equal to 2. When either is 1, the graph is a tree, so it is planar. With either \(r\) or \(s\) equal to 2, the graph can be drawn with the larger set in the middle, with either of the pair on each side.
+    \\
+
+    When both are greater than 2, the graph contains a subdivision of \(K_{3,3}\), so it is not planar.
 \end{homeworkProblem}
 \begin{homeworkProblem}
     Show that the graph obtained by deleting one edge of \(K_{3,3}\) is planar.
@@ -276,6 +279,191 @@
         (c) edge node {} (e)
         ;
     \end{tikzpicture}
+
+    \textbf{Solution}
+    \\
+
+    Choosing the exterior cycle \(H_1:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        ;
+    \end{tikzpicture}
+
+    \vspace{1in}
+    Any segment can be placed in either \(r_1\) or \(r_2\), so choose \(s_1\) in \(r_1\).
+
+    \(H_2:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        ;
+    \end{tikzpicture}
+
+    \vspace{1in}
+
+    \(R(s_1, H_2) = {r_3}\). Choose \(s_1\) now because it can only be placed in one region.
+
+    \(H_3:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        (b) edge [bend left=90] node {} (d)
+        ;
+    \end{tikzpicture}
+
+    \vspace{1in}
+
+    Once again, \(s_1\) can only be placed in one region, \(r_4\), so preemptively choose it for simplicity.
+
+    \(H_4:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        (b) edge [bend left=90] node {} (d)
+        (d) edge node {} (f)
+        ;
+    \end{tikzpicture}
+
+    \vspace{1in}
+
+    \(R(s_1, H_4) = {r_5, r_1}\)\\
+    \(R(s_2, H_4) = {r_5}\)\\
+    \(R(s_3, H_4) = {r_5}\)\\
+
+    Choose \(s_2\)
+
+    \(H_5:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        (b) edge [bend left=90] node {} (d)
+        (d) edge node {} (f)
+        ;
+        \draw (d) to [out=0,in=90] ($(e)+(.5,0)$) to [out=-90,in=-45] (c);
+    \end{tikzpicture}
+
+    \vspace{1in}
+
+    \(s_1\) can be placed in \(r_1\). 
+
+    \(H_6:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        (b) edge [bend left=90] node {} (d)
+        (d) edge node {} (f)
+        (b) edge node {} (f)
+        ;
+        \draw (d) to [out=0,in=90] ($(e)+(.5,0)$) to [out=-90,in=-45] (c);
+    \end{tikzpicture}
+
+    The final edge can be placed in \(r_5\). Our final planar graph is
+
+    \(G:\)
+    \begin{tikzpicture}[vertex/.style={circle,draw,fill=black,inner sep=0pt,minimum size=5pt}]
+        \node[vertex,label=above:1] (a) {};
+        \node[vertex,label=left:6] (b) [below left=1cm of a] {};
+        \node[vertex,label=below:5] (c) [below right= 1cm of b] {};
+        \node[vertex,label=above:2] (d) [right= 1.5cm of a] {};
+        \node[vertex,label=right:3] (e) [below right= 1cm of d] {};
+        \node[vertex,label=below:4] (f) [below left= 1cm of e] {};
+
+        \path[draw, thick]
+        (a) edge node {} (b)
+        (b) edge node {} (c)
+        (c) edge node {} (f)
+        (f) edge node {} (e)
+        (e) edge node {} (d)
+        (d) edge node {} (a)
+        (a) edge node {} (f)
+        (b) edge [bend left=90] node {} (d)
+        (d) edge node {} (f)
+        (b) edge node {} (f)
+        ;
+        \draw (d) to [out=0,in=90] ($(e)+(.5,0)$) to [out=-90,in=-45] (c);
+        \draw (e) to [out=-90,in=-30] (c);
+    \end{tikzpicture}
+
+
+
 \end{homeworkProblem}
 \begin{homeworkProblem}
     Is the graph below planar? Use one of the theorems we talked about in class, not the algorithm.
